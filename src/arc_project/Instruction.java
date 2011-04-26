@@ -158,6 +158,8 @@ public abstract class Instruction {
 			break;
 
 		default:
+			char[] machine_fault_2 = {'0','0','1','0'};
+			Global.MFR.set(machine_fault_2);
 			throw new Exception("Illegal Opcode!");
 
 		}

@@ -121,7 +121,7 @@ public class Global {
 
 	// Add any Global tmp Register if you want...
 
-	public static Memory MEMORY = new Memory(16, 16, 16384); // Memory with the
+	public static Memory MEMORY = new Memory(16, 16, 8096); // Memory with the
 															// word length
 															// 16bits, address
 															// length 16bits,

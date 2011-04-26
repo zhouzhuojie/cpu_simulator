@@ -6,21 +6,20 @@
  */
 package arc_project;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Memory {
 	private int _memoryWordLength;
 	public int _memorySize;
 	private int _memoryAddressLength;
-	private Map<String, String> _addressMap;
+	private MemoryBank _membank0;
+	private MemoryBank _membank1;
 
 	public Memory(int _memoryWordlength, int _memoryAddressLength,
 			int _memorySize) {
 		this._memoryWordLength = _memoryWordlength;
 		this._memorySize = _memorySize;
 		this._memoryAddressLength = _memoryAddressLength;
-		_addressMap = new HashMap<String, String>(_memorySize);
+		this._membank0 = new MemoryBank(this._memorySize);
+		this._membank1 = new MemoryBank(this._memorySize);
 	}
 
 	/**
@@ -34,11 +33,15 @@ public class Memory {
 		// or 1, or the address's length is not the predefined one.
 		boolean tmp = true;
 		for (int i = 0; i < address.length; i++) {
-			tmp = tmp && ((address[i] == '0') || (address[i] == '1'));
+			tmp = tmp
+					&& ((address[i] == '0') || (address[i] == '1') || Global.ALU
+							.char2int(address) > this._memorySize - 1);
 		}
-		if ((tmp == false) || (address.length != _memoryAddressLength))
-			throw new Exception("Illegal address");
-
+		if ((tmp == false) || (address.length != _memoryAddressLength)) {
+			char[] machine_fault_0 = { '0', '0', '0', '0' };
+			Global.MFR.set(machine_fault_0);
+			throw new Exception("Illegal Memory Address");
+		}
 		// Throw exception when the word char[] contains char which is not 0 or
 		// 1, or the word's length is not the predefined one.
 		boolean tmp1 = true;
@@ -46,41 +49,48 @@ public class Memory {
 			tmp1 = tmp1 && ((word[i] == '0') || (word[i] == '1'));
 		}
 		if ((tmp1 == false) || (word.length != _memoryWordLength))
-			throw new Exception("Illegal word");
-
-		// Throw exception when memory overflow.
-		if (_addressMap.size() >= _memorySize)
-			throw new Exception("Memory over flow");
+			throw new Exception("Illegal Word");
 
 		String Address = new String(address);
-		String Word = new String(word);
 
-		this._addressMap.put(Address, Word);
+		if (Address.charAt(this._memoryAddressLength - 1) == '0') {
+			this._membank0.set(Address.substring(0,
+					this._memoryAddressLength - 1).toCharArray(), word);
+		} else {
+			this._membank1.set(Address.substring(0,
+					this._memoryAddressLength - 1).toCharArray(), word);
+		}
 
-		// Global.GUIMAIN.displayMemoryBank(address);
 	}
 
 	/**
 	 * @return get() returns the word, word's type is char[].
 	 */
 	public char[] get(char[] address) throws Exception {
+
 		// Throw exception when the address char[] contains char which is not 0
 		// or 1, or the address's length is not the predefined one.
 		boolean tmp = true;
-
 		for (int i = 0; i < address.length; i++) {
-			tmp = tmp && ((address[i] == '0') || (address[i] == '1'));
+			tmp = tmp
+					&& ((address[i] == '0') || (address[i] == '1') || Global.ALU
+							.char2int(address) > this._memorySize - 1);
 		}
-		if ((tmp == false) || (address.length != _memoryAddressLength))
-			throw new Exception("Illegal address");
+		if ((tmp == false) || (address.length != _memoryAddressLength)) {
+			char[] machine_fault_0 = { '0', '0', '0', '0' };
+			Global.MFR.set(machine_fault_0);
+			throw new Exception("Illegal Memory Address");
+		}
 
 		String Address = new String(address);
-		String Word = _addressMap.get(Address);
-		if (null == Word){
-			char[] zeros = {'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'};
-			return zeros;
+
+		if (Address.charAt(this._memoryAddressLength - 1) == '0') {
+			return this._membank0.get(Address.substring(0,
+					this._memoryAddressLength - 1).toCharArray());
+		} else {
+			return this._membank1.get(Address.substring(0,
+					this._memoryAddressLength - 1).toCharArray());
 		}
-		return Word.toCharArray();
 	}
 
 }

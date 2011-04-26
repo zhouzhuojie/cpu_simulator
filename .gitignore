@@ -1,0 +1,7 @@
+bin/
+settings.fatjar
+.metadata/
+.settings/
+.classpath
+.fatjar
+.project

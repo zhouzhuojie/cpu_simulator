@@ -62,7 +62,7 @@ public class Test {
 		char[] w3 = {'0','0','0','0','0','0','0','0','0','0','0','0','0','0','1','1'};
 		Global.MEMORY.set(w0,w0);
 		Global.MEMORY.set(w2,w2);
-		Global.MEMORY.set(w1,w1);
+		Global.MEMORY.set(w1,w2);
 		Global.MEMORY.set(w3,w3);
 //		Global.R[0].set(w0);
 //		Global.R[1].set(w1);
