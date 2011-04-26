@@ -150,8 +150,6 @@ public class GuiPanel extends Panel {
 		    	  Global.GUIMAIN.outToConsole ("\nAnswer is: ");		    	  
 		      }
 			  String SS = ""+c;
-//			  Global.GUIMAIN.Out("**** SS = "+SS+", num = "+num+"\n");
-			  System.out.println("**** SS = "+SS+", num = "+num+"\n");
 			  char[] c0=null;
 			try {
 				c0 = Global.ALU.int2char(num);

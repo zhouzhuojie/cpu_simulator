@@ -46,69 +46,7 @@ public class InstructionSet_IN extends Instruction {
 		switch (Global.ALU.char2int(Global.DEVID.get())) {
 
 		case 0:
-			//String SS;
-			// Global.GUIMAIN.enableKeyboard(true);
-			//
-			// while (GuiMain.InputPanel.textField.isEnabled()){
-			// Global.GUIMAIN.inFromKeyboard(Global.RSR.get());// Input from the
-			// keyboard to the register which RSR points to.
-			// }
 			EnableKeyboard ();
-
-// to capture all numbers before procesing			
-//			if (!Global.GUIMAIN.InputPanel.gInputDone)
-//				EnableKeyboard ();
-//			else
-//			{
-//				SS = Global.GUIMAIN.InputPanel.vStr.elementAt(gInputIdx++);			
-//
-//			//			String SS = getLine0();
-//			
-//			char[] c0 = SS.toCharArray();
-//			
-//			//System.out.println ("**** SS = "+SS);
-//			Global.R[Global.ALU.char2int(Global.RSR.get())].set(c0);
-//			System.out.print(Global.R[Global.ALU.char2int(Global.RSR.get())].get());
-//			}
-			
-			//			if (SS.charAt(7)=='0' &&  SS.charAt(8)=='0') {
-//				try {
-//					Global.R[0].set(c0);
-//				} catch (Exception e) {
-//					// TODO Auto-generated ccatcch blocck
-//					e.printStackTrace();
-//				}
-//			}
-//
-//			if (SS.charAt(7)=='0' &&  SS.charAt(8)=='1') {
-//
-//				try {
-//
-//					Global.R[1].set(c0);
-//
-//				} catch (Exception e) {
-//					// TODO Auto-generated ccatcch blocck
-//					e.printStackTrace();
-//				}
-//			}
-//
-//			if (SS.charAt(7)=='1' &&  SS.charAt(8)=='0') {
-//				try {
-//					Global.R[2].set(c0);
-//				} catch (Exception e) {
-//					// TODO Auto-generated ccatcch blocck
-//					e.printStackTrace();
-//				}
-//			}
-//
-//			if (SS.charAt(7)=='1' &&  SS.charAt(8)=='1') {
-//				try {
-//					Global.R[3].set(c0);
-//				} catch (Exception e) {
-//					// TODO Auto-generated ccatcch blocck
-//					e.printStackTrace();
-//				}
-//			}
 			break;
 
 		case 2:
@@ -116,7 +54,6 @@ public class InstructionSet_IN extends Instruction {
 
 			char[] c = S.toCharArray();
 			Global.R[Global.ALU.char2int(Global.RSR.get())].set(c);
-//			System.out.print(Global.R[Global.ALU.char2int(Global.RSR.get())].get());
 			break;
 		default:
 			throw new Exception("Invalid Device");

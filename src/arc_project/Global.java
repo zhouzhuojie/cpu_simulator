@@ -113,6 +113,8 @@ public class Global {
 	public static Register SR = new Register(16); // Shift Register
 	public static Register RR = new Register(16); // Rotate Register
 	public static Register DEVID = new Register(5); // Device ID
+	public static Register [] VREG1 = new Register[32]; //32 vector Registers
+	public static Register [] VREG2 = new Register[32]; //32 vector Registers
 	public static Register DLN = new Register(16); // Line number that the
 													// programmer want to start
 													// to debug.

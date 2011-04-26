@@ -20,6 +20,15 @@ public class Register {
 	 * Constructor for objects of class Register, define the length of the
 	 * register.
 	 */
+	public Register() {
+		// initialize _regContent
+		_regLength = 16;
+		_regContent = new char[_regLength];
+		for (int i = 0; i < _regLength; i++) {
+			_regContent[i] = '0';
+		}
+	}
+
 	public Register(int length) {
 		// initialize _regContent
 		_regLength = length;

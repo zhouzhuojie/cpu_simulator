@@ -58,7 +58,7 @@ public class Alu {
 		char[] barr = (Integer.toString(b,2)).toCharArray();
 		
 		// Overflow condition
-		if (barr.length > _maxLength - 1)
+		if (barr.length > _maxLength)
 			throw new Exception( "Overflow" );
 
 		// Initialize char[] c
