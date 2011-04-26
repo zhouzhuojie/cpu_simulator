@@ -56,15 +56,19 @@ public class Test {
 		
 //		Global.GUIMAIN.refresh();
 		
-		char[] w0 = {'0','0','1','0','0','0','0','0','0','0','0','0','0','0','0','0'};
-		char[] w1 = {'1','1','0','0','0','0','0','0','0','0','0','0','0','0','0','0'};
+		char[] w0 = {'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'};
+		char[] w1 = {'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'};
+		char[] w2 = {'0','0','0','0','0','0','0','0','0','0','0','0','0','0','1','0'};
+		char[] w3 = {'0','0','0','0','0','0','0','0','0','0','0','0','0','0','1','1'};
 		Global.MEMORY.set(w0,w0);
+		Global.MEMORY.set(w2,w2);
 		Global.MEMORY.set(w1,w1);
-		Global.R[0].set(w0);
-		Global.R[1].set(w1);
+		Global.MEMORY.set(w3,w3);
+//		Global.R[0].set(w0);
+//		Global.R[1].set(w1);
 		
 //		Global.IR.set(c);
-		String s = "0000000001000000";
+		String s = "0000000000000000";
 		Global.IR.set(s.toCharArray());
 		InstructionSet_VSUB vadd= new InstructionSet_VSUB();vadd.operate();
 //		InstructionSet_VADD vadd= new InstructionSet_VADD();vadd.operate();
