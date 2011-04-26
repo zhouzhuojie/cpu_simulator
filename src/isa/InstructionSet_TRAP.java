@@ -17,6 +17,11 @@ public class InstructionSet_TRAP extends Instruction {
 		Global.RSR.set(Global.IR.get(8, 9));
 		int index_number = Global.ALU.char2int(Global.R[Global.ALU
 				.char2int(Global.RSR.get())].get());
+		if (index_number > 15){
+			char[] machine_fault_1 = {'0','0','0','1'};
+			Global.MFR.set(machine_fault_1);
+			throw new Exception("Illegal TRAP code!");
+		}
 
 		char[] memory_0 = { '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
 				'0', '0', '0', '0', '0', '0' };
