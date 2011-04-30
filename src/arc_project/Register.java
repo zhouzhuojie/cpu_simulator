@@ -62,11 +62,6 @@ public class Register {
 
 		this._regContent = _regContent;
 
-		// System.out.println("Set into the register 1");
-
-		// Global.GUIMAIN.refresh();
-		//
-		// Global.GUIMAIN.outToConsole(this._regContent.toString());
 	}
 
 	/**
@@ -75,10 +70,7 @@ public class Register {
 	 */
 	public void set(char c, int i) throws Exception {
 		_regContent[i] = c;
-		// Global.GUIMAIN.refresh();
-		// Global.GUIMAIN.outToConsole(this._regContent.toString());
 
-		// System.out.println("Set into the register 2");
 
 	}
 
@@ -92,12 +84,6 @@ public class Register {
 
 		for (int k = startIndex; k < partContent.length + startIndex; k++)
 			_regContent[k] = partContent[k - startIndex];
-
-		// System.out.println("Set into the register 3");
-		//
-		//
-		// Global.GUIMAIN.refresh();
-		// Global.GUIMAIN.outToConsole(this._regContent.toString());
 
 	}
 
@@ -115,18 +101,6 @@ public class Register {
 		return _regContent[i];
 	}
 
-	/* Old designed */
-	/*
-	 * /**
-	 * 
-	 * @return the _regContent[i to j] /* public char[] get(int i, int j) throws
-	 * Exception{ if (j <= i) throw new Exception("Not exist this char[]");
-	 * 
-	 * char[] c = new char[j - i + 1]; for (int k = 0; k < c.length; k++) c[k] =
-	 * _regContent[i + k];
-	 * 
-	 * return c; }
-	 */
 
 	/* changed by Leen */
 	/**

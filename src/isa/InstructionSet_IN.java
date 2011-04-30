@@ -29,14 +29,10 @@ public class InstructionSet_IN extends Instruction {
 	 */
 	@Override
 	public void operate() throws Exception {
-		// TODO Auto-generated method stub
-
 //		5)  RSR		< IR 7-8
 		Global.RSR.set(Global.IR.get(7,8));	
 //			DEVID 	< IR 10-15
 		Global.DEVID.set(Global.IR.get(11,15));	
-		
-		
 		
 		/* Process 6 move to default case in Process 7 */
 //		6)	Check if device is valid (0:Keyboard, 2:Card Reader)
@@ -60,11 +56,7 @@ public class InstructionSet_IN extends Instruction {
 
 		}
 		// 8) PC < PC + 1
-//		if (Global.GUIMAIN.gThread.gKeyboardOn == false)
-			Global.PC.set(Global.ALU.add(Global.PC.get(), 1));
-
-		// Instruction.deCode();
-
+		Global.PC.set(Global.ALU.add(Global.PC.get(), 1));
 	}
 
 	public void EnableKeyboard ()
@@ -83,11 +75,6 @@ public class InstructionSet_IN extends Instruction {
 						filename = "program2.txt"; 
 				Global.fstream = new FileInputStream("program_file/"+filename);
 				// Get the object of DataInputStream
-				
-//			if (Global.fstream == null) {
-//				Global.fstream = new FileInputStream("program_file/program2.txt");
-//				// Get the object of DataInputStream
-
 				DataInputStream in = new DataInputStream(Global.fstream);
 				Global.br = new BufferedReader(new InputStreamReader(in));
 			}
@@ -107,34 +94,4 @@ public class InstructionSet_IN extends Instruction {
 		}
 		return null;
 	}
-	
-	public String getLine0() {
-		try {
-			// Open the file that is the first
-			// command line parameter
-
-			if (Global.fstream0 == null) {
-				Global.fstream0 = new FileInputStream("program_file/input1.txt");
-				// Get the object of DataInputStream
-
-				DataInputStream in = new DataInputStream(Global.fstream0);
-				Global.br0 = new BufferedReader(new InputStreamReader(in));
-			}
-			String strLine;
-			// Read File Line By Line
-			if ((strLine = Global.br0.readLine()) != null) {
-
-				return strLine;
-
-			}
-			// Close the input stream
-			else {
-				Global.fstream0 = null;
-			} // in.close();
-		} catch (Exception e) {// Catch exception if any
-			System.err.println("Error: " + e.getMessage());
-		}
-		return null;
-	}
-	
 }

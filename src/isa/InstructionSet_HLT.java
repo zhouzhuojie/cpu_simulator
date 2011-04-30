@@ -22,5 +22,6 @@ public class InstructionSet_HLT extends Instruction{
 //		6)	Stop
 			//Nothing implement here
 			Global.GUIMAIN.gThread.gRun=false;
+
 	}
 }

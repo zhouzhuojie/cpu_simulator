@@ -30,7 +30,7 @@ public class GuiThread implements Runnable {
     public Boolean gRun=false;
     public Boolean gDebug=false;
     public Boolean gStep=false;
-    public long gTimer=0;  // 10 mc
+    public long gTimer=0;
     public Boolean gKeyboardOn = false;
     
     GuiThread (GuiMain top)     
@@ -40,56 +40,49 @@ public class GuiThread implements Runnable {
     	thread.start ( );    
     }   
     
-    public void run ()     
-    {        
-    	while (true)
-    	{
-			if (gRun) 
-			{
-				//gMain.gTimerOn = true; 
-				if (gDebug && gStep) 
-				{
-					if (gKeyboardOn == false)
-					{
+	public void run() {
+		while (true) {
+			if (gRun) {
+				// gMain.gTimerOn = true;
+				if (gDebug && gStep) {
+					if (gKeyboardOn == false) {
 						gMain.resetTimer();
-						gMain.Out("line     "+Global.ALU.char2int(Global.PC.get()));				
+						gMain.Out("line     "
+								+ Global.ALU.char2int(Global.PC.get()));
 						try {
 							Instruction.deCode();
-							gMain.gNumISA++; 
+							gMain.gNumISA++;
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
 						gMain.addExecutionTime();
 						gStep = false;
 					}
-				} else if (gDebug == false) 
-					{
-						if (gKeyboardOn == false)
-						{
+				} else if (gDebug == false) {
+					if (gKeyboardOn == false) {
 						gMain.resetTimer();
-						gMain.Out("line    "+Global.ALU.char2int(Global.PC.get()));
+						gMain.Out("line    "
+								+ Global.ALU.char2int(Global.PC.get()));
 						try {
 							Instruction.deCode();
-							gMain.gNumISA++; 
+							gMain.gNumISA++;
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
 						gMain.addExecutionTime();
 					}
 				}
-			}
-			else
-			if (gMain.gTimerOn)
-			{
+			} else if (gMain.gTimerOn) {
 				gMain.gTimerOn = false;
-				gMain.printExecutionTime(); 
+				gMain.printExecutionTime();
 			}
-    		try {
-    			//delay for one second
-    			Thread.currentThread().sleep(gTimer);
-    		} catch (InterruptedException e) {
-    		}
-    	}
-    }	
+			try {
+				// delay for one second
+				Thread.currentThread().sleep(gTimer);
+			} catch (InterruptedException e) {
+			}
+		}
+	}
+
     public void stop () {}
 }

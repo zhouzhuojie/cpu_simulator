@@ -44,10 +44,16 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.Vector;
 import arc_project.Global;
-import isa.*;
+import arc_project.Instruction;
+import arc_project.VectorDemo;
+
 
 /*****************************************************************************
  * CLASS GuiMain                                                             *
@@ -1253,31 +1259,10 @@ public class GuiMain extends Frame implements MouseListener, MouseMotionListener
 		labStatus.setText(str); 
 	}
 
-	/*************************************************************************
-	 * Part2_Cache_Memory                                                    *
-	 *                                                                       *
-	 * Authors: Zhuojie Zhou and Leenarat Leelapanyalert                     *
-	 *                                                                       *
-	 * Input  : none                                                         *
-	 *                                                                       *
-	 * return : void                                                         *
-	 *                                                                       *
-	 * Part 2 - perform cache memory                                         *
-	 *************************************************************************/
-	public void cacheMemory () throws Exception
+	public void vector_cache_demo() throws Exception
 	{
-	char[] w0 = {'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'};
-	char[] w1 = {'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'};
-	char[] w2 = {'0','0','0','0','0','0','0','0','0','0','0','0','0','0','1','0'};
-	char[] w3 = {'0','0','0','0','0','0','0','0','0','0','0','0','0','0','1','1'};
-	Global.MEMORY.set(w0,w0);
-	Global.MEMORY.set(w2,w2);
-	Global.MEMORY.set(w1,w2);
-	Global.MEMORY.set(w3,w3);
-	String s = "0000000000000000";
-	Global.IR.set(s.toCharArray());
-	isa.InstructionSet_VSUB vadd= new isa.InstructionSet_VSUB();
-	vadd.operate();
-	outToConsole (new String (Global.MEMORY.get(w0)));
+		VectorDemo vectordemo = new VectorDemo();
+		vectordemo.demo();
 	}
+	
 }

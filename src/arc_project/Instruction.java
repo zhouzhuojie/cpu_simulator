@@ -15,6 +15,8 @@ import isa.*;
 public abstract class Instruction {
 
 	public static void deCode() throws Exception {
+		
+		
 		String sPC = new String(Global.PC.get());
 		String sDLN = new String(Global.DLN.get());
 		if (sPC.equals(sDLN)) {
@@ -158,6 +160,14 @@ public abstract class Instruction {
 			InstructionSet_CHK chk = new InstructionSet_CHK();
 			chk.operate();
 			break;
+		case 35:
+			InstructionSet_VADD vadd = new InstructionSet_VADD();
+			vadd.operate();
+			break;
+		case 36:
+			InstructionSet_VSUB vsub = new InstructionSet_VSUB();
+			vsub.operate();
+			break;
 
 		default:
 			char[] machine_fault_2 = {'0','0','1','0'};
@@ -165,23 +175,7 @@ public abstract class Instruction {
 			throw new Exception("Illegal Opcode!");
 
 		}
-//		System.out.print("   PC  ");
-//		System.out.print(Global.ALU.char2int(Global.PC.get()));
-//		System.out.print("   R0  ");
-//		System.out.print(Global.R[0].get());
-//		System.out.print("  ");
-//		System.out.print("   R1  ");
-//		System.out.print(Global.R[1].get());
-//		System.out.print("  ");
-//		System.out.print("   R2  ");
-//		System.out.print(Global.R[2].get());
-//		System.out.print("  ");
-//		System.out.print("   R3  ");
-//		System.out.print(Global.R[3].get());
-//		System.out.print("  ");
-//		System.out.print("   X0  ");
-//		System.out.print(Global.X0.get());
-//		System.out.print("  ");
+
 
 	}
 

@@ -26,6 +26,10 @@ import arc_project.Global;
  * GuiPanel provides general panel structure for TextArea, TextField & Choice*
  *****************************************************************************/
 public class GuiPanel extends Panel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public TextArea textArea = null;
 	public TextField textField = null;
 	public Choice choice = null; 
@@ -101,7 +105,7 @@ public class GuiPanel extends Panel {
 			choice = new Choice();
 			choice.add ("Program 1");
 			choice.add ("Program 2");
-			choice.add ("Cache Memory");
+			choice.add ("Vector and Cache Demo");
 			choice.addItemListener(itemListener);
 			add(choice);
 		}
@@ -122,11 +126,11 @@ public class GuiPanel extends Panel {
     		  Global.GUIMAIN.gNumSkipISA = 14500;
        	  if (ProgramName.equals("Program 2"))
     		  Global.GUIMAIN.gNumSkipISA = 32500;
-       	  if (ProgramName.equals("Cache Memory"))
+       	  if (ProgramName.equals("Vector and Cache Demo"))
 			try {
-				Global.GUIMAIN.cacheMemory();
+				Global.GUIMAIN.vector_cache_demo();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			} 
       }

@@ -59,15 +59,6 @@ public class Global {
 													// supports base register
 													// addressing of memory.
 
-	/* Old Design */
-	/*
-	 * public static Register R0 = new Register(16); //General Purpose
-	 * Registers, index 0 public static Register R1 = new Register(16);
-	 * //General Purpose Registers, index 1 public static Register R2 = new
-	 * Register(16); //General Purpose Registers, index 2 public static Register
-	 * R3 = new Register(16); //General Purpose Registers, index 3
-	 */
-
 	/* Changed by Leen */
 
 	public static Register R0 = new Register(16); // General Purpose Registers,
