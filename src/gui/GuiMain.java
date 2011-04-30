@@ -44,16 +44,10 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.Vector;
 import arc_project.Global;
-import arc_project.Instruction;
 import arc_project.VectorDemo;
-
 
 /*****************************************************************************
  * CLASS GuiMain                                                             *
@@ -363,14 +357,33 @@ public class GuiMain extends Frame implements MouseListener, MouseMotionListener
 	    			(gThread.gDebug && gThread.gStep) || 
 	    			GuiPanel.bUserInputDone == false)
 		    	{
-		    		//o.setValue(strval);
 		    		DrawReg (o, strval);
 		    		o.setValue(strval);
+		    		DrawInternalRegisters ();
 		    	}
 		    }
 	    }
 	}
 
+	/*************************************************************************
+	 * DrawInternalRegsisters                                                *
+	 *                                                                       *
+	 * Input  : none                                                         *
+	 *                                                                       *
+	 * Return : void                                                         *
+	 *                                                                       *
+	 * Display internal registers. .                                         *
+	 *************************************************************************/
+	public void DrawInternalRegisters ()
+	{
+		setRegister ("OPCODE", new String (Global.OPCODE.get()));
+		setRegister ("I", new String (Global.IND.get()));
+		setRegister ("IX", new String (Global.IXI.get()));
+		setRegister ("RSR", new String (Global.RSR.get()));
+		setRegister ("ADDR", new String (Global.ADDR.get()));
+		setRegister ("EA", new String (Global.EA.get()));
+	}
+	
 	/*************************************************************************
 	 * DrawReg                                                               *
 	 *                                                                       *
@@ -458,7 +471,7 @@ public class GuiMain extends Frame implements MouseListener, MouseMotionListener
 	    	outToConsole ("** ERROR from setRegister **");
 	    	return null;
 	    }
-	    o.setValue(regval);
+	    o.setTempValue(regval);
 	    if (binit) DrawRegister (o);
 	    
 	    return o;
@@ -533,7 +546,7 @@ public class GuiMain extends Frame implements MouseListener, MouseMotionListener
 		ChoicePanel = new GuiPanel(gPanelX+90,370+20+280,gPanelW-90,20, Color.WHITE,3);
 		ChoicePanel.choice.setBackground(Color.WHITE);
 
-		labStatus = new Label ("Status: ");
+		labStatus = new Label ("Execution time (ms): "+totaltime+" for "+gNumISA+" ISA instructions");
 		labStatus.setLocation(100,700);
 		labStatus.setFont(H4font);  
 		labStatus.setBackground(Color.BLACK);
@@ -701,9 +714,13 @@ public class GuiMain extends Frame implements MouseListener, MouseMotionListener
 	   			}
 	   			if (r.name.equals("Halt")) 
 	   			{ 
+	   				GuiRect tr;
 	   				gThread.gRun=false; 
 	   				gThread.gDebug=false; 
 	   				gThread.gStep=false;
+	   				// set "Run" & "IPL" buttons to OFF
+	   				setButton ("Run", false); 
+	   				setButton ("IPL", false);
 	   				printExecutionTime();
 	   				outToConsole ("Click Halt"); 
 	   			}
@@ -716,15 +733,28 @@ public class GuiMain extends Frame implements MouseListener, MouseMotionListener
 	   				ConsolePanel.gNumIn = 1;
 	   				ConsolePanel.bFirstTime = true;
 	   				ConsolePanel.Alltext = "";
+	   				setButton ("Run", false);
+	   				setButton ("Halt", false);
+	   				setButton ("Debug", false);
 	   				outToConsole ("Click IPL"); 
 	   			}
 	   			if (r.name.equals("Debug")){ gThread.gDebug=true; }
 	   			if (r.name.equals("Step")) { gThread.gStep=true; }
-	   			if (r.name.equals("Cont")) { gThread.gDebug=false; gThread.gStep=false; outToConsole ("Click CONT"); }
+	   			if (r.name.equals("Cont")) 
+	   			{ 
+	   				gThread.gDebug=false; 
+	   				gThread.gStep=false;  	
+	   				setButton ("Debug", false); 
+	   				}
 	   			if (r.name.equals("USR_CLEAR")) 
 	   			{ 
 	   				gUSR="0000000000000000"; 
-	   				DrawRegister ("USR");
+	   				setRegister ("USR", gUSR);
+	   				for (int j=0; j<16; j++)
+	   				{
+	   					GuiRect tr = getRect ("USR_"+j);
+	   					tr.on = false; 
+	   				}
 	   				try {
 	   					commitRegister ("USR", gUSR);
 	   				} catch (Exception e1) {
@@ -737,7 +767,7 @@ public class GuiMain extends Frame implements MouseListener, MouseMotionListener
 	   				str = r.name.substring(0,3);
 	   				try {
 						setRegister (str, gUSR);
-						commitRegister (str, gUSR);
+						//commitRegister (str, gUSR);
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
@@ -748,13 +778,21 @@ public class GuiMain extends Frame implements MouseListener, MouseMotionListener
 	   				resetRegister (str);
 	   				r.on = true; 
 	   			}
-		
+
+	   			// Display Buttons
 	   			if (r.id == -1)
 	   			{
-		   			if (r.on)
-		    			g.drawImage(img[r.imgid], r.x, r.y, root);
+	   				if (!r.name.equals("Step") && !r.name.equals("Cont"))
+		   			{
+	   				if (r.on)
+	   					setButton (r, false); 
 	    			else
-		    			g.drawImage(img[r.imgid+1], r.x, r.y, root);
+	    				setButton (r, true); 
+		   			}
+	   				if (r.name.equals("Cont"))
+	   				{
+	   					setButton ("Debug", false); 
+	   				}
 	   			}
 	   			
 	   			// user clicking on the user-define register
@@ -762,22 +800,17 @@ public class GuiMain extends Frame implements MouseListener, MouseMotionListener
 	   			{
 	   				idx = Integer.parseInt(r.name.substring (4));
 	   				if (r.on)
-		   			{
 		   				str = "0"; 
-		    			g.drawImage(img[r.imgid], r.x, r.y, root);
-		   			}
 	    			else
 	    			{
 	    				str = "1";
-	    				g.drawImage(img[r.imgid+1], r.x, r.y, root);	   				
 	    			}
 	   				gUSR = gUSR.substring(0,idx)+str+gUSR.substring(idx+1);
+	   				setRegister ("USR", gUSR);
 	   				r.on = !r.on;
-	   				//DEBUG ("USR LEDS: "+gUSR+",len ="+gUSR.length()+", idx ="+idx);
-
 	   			}
-	   			else
-	    			g.drawImage(img[r.imgid], r.x, r.y, root);
+//	   			else
+//	    			g.drawImage(img[r.imgid], r.x, r.y, root);
 	   				
 	    		//r.on = !r.on;    		
 	    		strEvent = "****** Inside MouseClick "+r.name+": x="+x+", y="+y;
@@ -870,6 +903,42 @@ public class GuiMain extends Frame implements MouseListener, MouseMotionListener
 	}
 
 	/*************************************************************************
+	 * setButton                                                             *
+	 *                                                                       *
+	 * Input  : GuiRect r - button handler                                   *
+     (          Boolean mode - button either: "true"=on,"false"=off          * 
+	 *                                                                       *
+	 * Set the given button either on or off.                                *
+	 *************************************************************************/
+	public void setButton (GuiRect r, Boolean mode) 
+	{   
+		int idx=0;
+		if (mode) idx = 1;
+		Graphics g = root.getGraphics();		 
+		g.drawImage(img[r.imgid+idx], r.x, r.y, root);
+		r.on = mode;
+	}
+	
+	/*************************************************************************
+	 * setButton                                                             *
+	 *                                                                       *
+	 * Input  : String button_name - button name                             *
+     (          Boolean mode - button either: "true"=on,"false"=off          * 
+	 *                                                                       *
+	 * Set the given button either on or off.                                *
+	 *************************************************************************/
+	public void setButton (String button_name, Boolean mode) 
+	{   
+		Graphics g = root.getGraphics();		
+		GuiRect r; 
+		int idx=0;
+		if (mode) idx=1;
+		r = getRect (button_name);
+		g.drawImage(img[r.imgid+idx], r.x, r.y, root);
+		r.on = mode;
+	}
+	
+	/*************************************************************************
 	 * DisplayButtons                                                        *
 	 *                                                                       *
 	 * Input  : Graphics g - graphic handler                                 *
@@ -902,10 +971,11 @@ public class GuiMain extends Frame implements MouseListener, MouseMotionListener
 				else 
 					g.drawImage(img[r.imgid+1], r.x, r.y, root);
 			}
-			else
+			else // display registers' "YES" & "NO" buttons
 				g.drawImage(img[r.imgid], r.x, r.y, root);
-			
 		}
+		r = getRect ("USR_CLEAR"); 
+		g.drawImage(img[r.imgid], r.x, r.y, root);		
 	}
 
 
