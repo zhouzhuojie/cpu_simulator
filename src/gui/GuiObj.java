@@ -1,10 +1,27 @@
+/*****************************************************************************
+ * FILE    : GuiObj.java                                 Rev. 1.0 05/04/2011 *
+ *                                                                           *
+ * AUTHOR  : Wo Chang                                                        *
+ *                                                                           *
+ * DATE    : May 4, 2011                                                     *
+ *                                                                           *
+ * PROJECT : GWU CS6461 Computer Architecture Class                          *
+ *                                                                           *
+ * This file contains the GUI object of buttons.                             *
+ *                                                                           *
+ * DEPENDS : 1. arc_project.Global: global variables from the simulator      *
+ *           2. Java(TM) SE Runtime Environment (build 1.6.0_15-b03)         *
+ *****************************************************************************/
 package gui;
 
 import java.awt.Color;
-import java.awt.Image;
-
 import arc_project.Global;
 
+/*****************************************************************************
+ * CLASS GuiObj                                                              *
+ *                                                                           *
+ * GUIObj holds the GUI side of register info.                               * 
+ *****************************************************************************/
 public class GuiObj {
 
 	public String name;
@@ -23,18 +40,24 @@ public class GuiObj {
 	{
 		if (this.size <= newval.length())
 			this.val = newval.substring(0, this.size); 
-	//	System.out.println("setValue: name ="+this.name+", val="+newval); 
-	
-	
 	}
 	
+	/*************************************************************************
+	 * commitValue                                                           *
+	 *                                                                       *
+	 * Input  : String regname - register name                               *
+	 *          String newval = new register value                           *       
+	 *                                                                       *
+	 * return : void                                                         *
+	 *                                                                       *
+	 * Update ISA side of register content.                                  *
+	 *************************************************************************/
 	public void commitValue (String regname, String newval)
 	{
 		if (regname.equals(" PC"))
 			try {
 				Global.PC.set(newval.toCharArray());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -42,7 +65,6 @@ public class GuiObj {
 			try {
 				Global.CC.set(newval.toCharArray());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -50,7 +72,6 @@ public class GuiObj {
 			try {
 				Global.IR.set(newval.toCharArray());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -58,7 +79,6 @@ public class GuiObj {
 			try {
 				Global.MAR.set(newval.toCharArray());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -66,7 +86,6 @@ public class GuiObj {
 			try {
 				Global.MBR.set(newval.toCharArray());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -74,7 +93,6 @@ public class GuiObj {
 //			try {
 //				Global.MSR.set(regval.toCharArray());
 //			} catch (Exception e) {
-//				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
 
@@ -82,7 +100,6 @@ public class GuiObj {
 			try {
 				Global.MFR.set(newval.toCharArray());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -90,7 +107,6 @@ public class GuiObj {
 			try {
 				Global.X0.set(newval.toCharArray());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     	
@@ -98,28 +114,24 @@ public class GuiObj {
 			try {
 				Global.R[0].set(newval.toCharArray());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		if (regname.equals(" R1"))
 			try {
 				Global.R[1].set(newval.toCharArray());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		if (regname.equals(" R2"))
 			try {
 				Global.R[2].set(newval.toCharArray());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		if (regname.equals(" R3"))
 			try {
 				Global.R[3].set(newval.toCharArray());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		
@@ -127,28 +139,22 @@ public class GuiObj {
 			try {
 				Global.DLN.set(newval.toCharArray());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
-		
-		
-//		if (this.size <= newval.length())
-//			this.val = newval.substring(0, this.size);
-//		this.oldval = this.val;
-//		try {
-//			Global.PC.set(newval.toCharArray());
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		//System.out.println("setValue: name ="+this.name+", val="+newval); 
 	}
 
+	/*************************************************************************
+	 * resetValue                                                            *
+	 *                                                                       *
+	 * Input  : none                                                         *       
+	 *                                                                       *
+	 * return : void                                                         *
+	 *                                                                       *
+	 * Restore the previous value to the displayable register.               *
+	 *************************************************************************/	
 	public void resetValue ()
 	{
 		this.val = this.oldval;
-		//System.out.println("resetValue: name ="+this.name+", val="+this.val); 
 	}
 
 }

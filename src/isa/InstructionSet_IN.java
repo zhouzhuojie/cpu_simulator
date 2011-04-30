@@ -78,8 +78,15 @@ public class InstructionSet_IN extends Instruction {
 			// command line parameter
 
 			if (Global.fstream == null) {
-				Global.fstream = new FileInputStream("program_file/program2.txt");
+				String filename = "program.txt";
+				if (Global.GUIMAIN.ChoicePanel.ProgramName.equals("Program 2"))
+						filename = "program2.txt"; 
+				Global.fstream = new FileInputStream("program_file/"+filename);
 				// Get the object of DataInputStream
+				
+//			if (Global.fstream == null) {
+//				Global.fstream = new FileInputStream("program_file/program2.txt");
+//				// Get the object of DataInputStream
 
 				DataInputStream in = new DataInputStream(Global.fstream);
 				Global.br = new BufferedReader(new InputStreamReader(in));

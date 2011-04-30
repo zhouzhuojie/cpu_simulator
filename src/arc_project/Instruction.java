@@ -23,6 +23,8 @@ public abstract class Instruction {
 
 		}
 
+		Global.GUIMAIN.refresh();
+		
 		/* Changed by Leen */
 		// 1) MAR < PC
 		Global.MAR.set(Global.PC.get());
