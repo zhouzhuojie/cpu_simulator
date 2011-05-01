@@ -13,12 +13,12 @@ import arc_project.Instruction;
 public class InstructionSet_OR extends Instruction {
 
 	/**
-	 * 
+	 * Logical Or of Register and Register
 	 */
 	public InstructionSet_OR() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see arc_project.Instruction#operate()
 	 */
@@ -34,9 +34,7 @@ public class InstructionSet_OR extends Instruction {
 		Global.R[Global.ALU.char2int(Global.RSR.get())].set(Global.ALU.or(Global.R[Global.ALU.char2int(Global.RSR.get())].get(), Global.R[Global.ALU.char2int(Global.RSR2.get())].get()));
 //		7)	PC	< PC + 1
 		Global.PC.set(Global.ALU.add(Global.PC.get(), 1));
-		
-		//Instruction.deCode();
-		
+
 	}
 
 }

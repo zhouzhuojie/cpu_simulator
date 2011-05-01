@@ -13,12 +13,12 @@ import arc_project.Instruction;
 public class InstructionSet_RRC extends Instruction {
 
 	/**
-	 * 
+	 * Rotate Register by Count
 	 */
 	public InstructionSet_RRC() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see arc_project.Instruction#operate()
 	 */
@@ -89,8 +89,6 @@ public class InstructionSet_RRC extends Instruction {
 //		14)	PC	< PC + 1
 		Global.PC.set(Global.ALU.add(Global.PC.get(), 1));
 		
-		//Instruction.deCode();
-
 	}
 
 }

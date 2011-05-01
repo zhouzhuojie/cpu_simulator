@@ -13,12 +13,12 @@ import arc_project.Instruction;
 public class InstructionSet_SOB extends Instruction {
 
 	/**
-	 * 
+	 * Subtract One And Branch
 	 */
 	public InstructionSet_SOB() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see arc_project.Instruction#operate()
 	 */
@@ -45,10 +45,7 @@ public class InstructionSet_SOB extends Instruction {
 //		+8) 		PC < PC +1
 			Global.PC.set(Global.ALU.add(Global.PC.get(), 1));
 		}
-		
-		//Instruction.deCode();
-		
-		
+	
 	}
 
 }

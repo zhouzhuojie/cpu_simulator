@@ -13,12 +13,12 @@ import arc_project.Instruction;
 public class InstructionSet_ISR extends Instruction {
 
 	/**
-	 * 
+	 * Immediate Subtract from Register
 	 */
 	public InstructionSet_ISR() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see arc_project.Instruction#operate()
 	 */
@@ -48,9 +48,7 @@ public class InstructionSet_ISR extends Instruction {
 //		+8)		PC	< PC + 1
 			Global.PC.set(Global.ALU.add(Global.PC.get(), 1));
 		}
-		
-		//Instruction.deCode();
-		
+
 	}
 
 }

@@ -13,15 +13,15 @@ import arc_project.Instruction;
 public class InstructionSet_STR extends Instruction {
 
 	/**
-	 * 
+	 * Store Register To Memory
 	 */
 	public InstructionSet_STR() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see arc_project.Instruction#operate()
-	 */
+	 */	
 	@Override
 	public void operate() throws Exception{
 		// TODO Auto-generated method stub
@@ -40,9 +40,7 @@ public class InstructionSet_STR extends Instruction {
 		Global.L1.set(Global.MAR.get(),Global.R[Global.ALU.char2int(Global.RSR.get())].get());
 //		8)	PC		< PC + 1
 		Global.PC.set(Global.ALU.add(Global.PC.get(), 1));
-		
-		//Instruction.deCode();
-		
+
 	}
 
 }

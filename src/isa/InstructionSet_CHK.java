@@ -32,29 +32,13 @@ public class InstructionSet_CHK extends Instruction {
 		Global.DEVID.set(Global.IR.get(10,15));	
 		/* Process 6 move to default case in Process 7 */
 //		6) 	Register(RSR) < Status(DEVID)
-		switch(Global.ALU.char2int(Global.DEVID.get())){
 		
-		case 0:		
-			Global.R[Global.ALU.char2int(Global.RSR.get())].set('1',15);
-			break;
-			
-		case 1:		
-			Global.R[Global.ALU.char2int(Global.RSR.get())].set('1',15);
-			break;
-		
-		case 2:		
-			Global.R[Global.ALU.char2int(Global.RSR.get())].set('1',15);
-			break;
-		
-		default:
-			Global.R[Global.ALU.char2int(Global.RSR.get())].set('0',15);
-			break;
+		Global.R[Global.ALU.char2int(Global.RSR.get())].set(
+				Global.ALU.int2char(Global.ALU.char2int(Global.DEVID.get()))
+		);
 
-		}
 //		7)	PC	< PC + 1
 		Global.PC.set(Global.ALU.add(Global.PC.get(), 1));
-		
-		//Instruction.deCode();
 		
 	}
 

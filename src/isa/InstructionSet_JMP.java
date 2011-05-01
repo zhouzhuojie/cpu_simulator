@@ -13,18 +13,16 @@ import arc_project.Instruction;
 public class InstructionSet_JMP extends Instruction {
 
 	/**
-	 * 
+	 * Unconditional Jump to Address
 	 */
 	public InstructionSet_JMP() {
 		// TODO Auto-generated constructor stub
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
+	
+	/* (non-Javadoc)
 	 * @see arc_project.Instruction#operate()
 	 */
-
+	@Override
 	public void operate() throws Exception {
 		// TODO Auto-generated method stub
 
@@ -36,8 +34,6 @@ public class InstructionSet_JMP extends Instruction {
 		Global.ADDR.set(Global.IR.get(10, 15));
 		// 6) PC < EA
 		Global.PC.set(Instruction.EA());
-
-		// Instruction.deCode();
 
 	}
 

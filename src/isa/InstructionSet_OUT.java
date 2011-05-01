@@ -13,12 +13,12 @@ import arc_project.Instruction;
 public class InstructionSet_OUT extends Instruction {
 
 	/**
-	 * 
+	 * Output Character to Device from Register
 	 */
 	public InstructionSet_OUT() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see arc_project.Instruction#operate()
 	 */
@@ -30,6 +30,7 @@ public class InstructionSet_OUT extends Instruction {
 		Global.RSR.set(Global.IR.get(7,8));	
 //			DEVID 	< IR 10-15
 		Global.DEVID.set(Global.IR.get(11,15));	
+		
 		/* Process 6 move to default case in Process 7 */
 //		6)	Check if device is valid (1:Printer)
 //		7) 	Character(DEVID) < Register(RSR)
@@ -47,9 +48,7 @@ public class InstructionSet_OUT extends Instruction {
 		}
 //		8)	PC	< PC + 1
 		Global.PC.set(Global.ALU.add(Global.PC.get(), 1));
-		
-		//Instruction.deCode();
-		
+
 	}
 
 }

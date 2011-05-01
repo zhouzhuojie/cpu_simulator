@@ -13,12 +13,12 @@ import arc_project.Instruction;
 public class InstructionSet_JNE extends Instruction {
 
 	/**
-	 * 
+	 * Jump If Not Equal
 	 */
 	public InstructionSet_JNE() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see arc_project.Instruction#operate()
 	 */
@@ -43,9 +43,7 @@ public class InstructionSet_JNE extends Instruction {
 //		+7) 		PC < PC + 1
 			Global.PC.set(Global.ALU.add(Global.PC.get(), 1));
 		}
-		
-		//Instruction.deCode();
-		
+	
 	}
 
 }

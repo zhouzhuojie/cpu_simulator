@@ -13,12 +13,12 @@ import arc_project.Instruction;
 public class InstructionSet_DIV extends Instruction {
 
 	/**
-	 * 
+	 * Divide Register by Register
 	 */
 	public InstructionSet_DIV() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see arc_project.Instruction#operate()
 	 */
@@ -41,8 +41,6 @@ public class InstructionSet_DIV extends Instruction {
 		Global.R[Global.ALU.char2int(Global.RSR.get())].set(Global.ALU.divide_quotient(Global.R[Global.ALU.char2int(Global.RSR.get())].get(), Global.R[Global.ALU.char2int(Global.RSR2.get())].get()));
 //		8)	PC	< PC + 1
 		Global.PC.set(Global.ALU.add(Global.PC.get(), 1));
-		
-		//Instruction.deCode();
 		
 	}
 

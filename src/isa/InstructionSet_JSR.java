@@ -13,12 +13,12 @@ import arc_project.Instruction;
 public class InstructionSet_JSR extends Instruction {
 
 	/**
-	 * 
+	 * Jump and Save Return Address
 	 */
 	public InstructionSet_JSR() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see arc_project.Instruction#operate()
 	 */
@@ -38,9 +38,7 @@ public class InstructionSet_JSR extends Instruction {
 		Global.PC.set(Instruction.EA());
 //		8) 	R0	< ponter to arguments
 		//*** Don't know what to implement here yet *** 
-		
-		//Instruction.deCode();
-		
+
 	}
 
 }

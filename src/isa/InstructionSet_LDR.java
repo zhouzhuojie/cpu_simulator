@@ -13,10 +13,16 @@ import arc_project.Instruction;
  *
  */
 public class InstructionSet_LDR extends Instruction{
-	public void operate() throws Exception {
-		//Do something for the LDR instruction
-		//Can have the access to any Global registers and Global Memory. They are all defined in class Global.
-		//...		
+	
+	/**
+	 * Load register from Memory
+	 */
+	
+	/* (non-Javadoc)
+	 * @see arc_project.Instruction#operate()
+	 */
+	@Override
+	public void operate() throws Exception {	
 			
 //		5)  IND 	< IR 6
 		Global.IND.set(Global.IR.get(6),0);
@@ -34,15 +40,7 @@ public class InstructionSet_LDR extends Instruction{
 		Global.R[Global.ALU.char2int(Global.RSR.get())].set(Global.MBR.get());
 //		9)	PC		< PC + 1
 		Global.PC.set(Global.ALU.add(Global.PC.get(), 1));
-		
-		//Instruction.deCode();
-		
+	
 	}
 }
-
-
-/**
- * @author zzj
- *
- */
  

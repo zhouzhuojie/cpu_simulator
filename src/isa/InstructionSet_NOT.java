@@ -13,12 +13,12 @@ import arc_project.Instruction;
 public class InstructionSet_NOT extends Instruction {
 
 	/**
-	 * 
+	 * Logical Not of Register To Register
 	 */
 	public InstructionSet_NOT() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see arc_project.Instruction#operate()
 	 */
@@ -32,9 +32,7 @@ public class InstructionSet_NOT extends Instruction {
 		Global.R[Global.ALU.char2int(Global.RSR.get())].set(Global.ALU.not(Global.R[Global.ALU.char2int(Global.RSR.get())].get()));
 //		7)	PC	< PC + 1
 		Global.PC.set(Global.ALU.add(Global.PC.get(), 1));
-		
-		//Instruction.deCode();
-		
+
 	}
 
 }

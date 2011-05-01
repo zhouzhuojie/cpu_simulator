@@ -13,12 +13,12 @@ import arc_project.Instruction;
 public class InstructionSet_RFS extends Instruction {
 
 	/**
-	 * 
+	 * Return From Subroutine with return code in Immed
 	 */
 	public InstructionSet_RFS() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see arc_project.Instruction#operate()
 	 */
@@ -33,9 +33,7 @@ public class InstructionSet_RFS extends Instruction {
 		Global.R[0].set(Global.IMMED.get(),10);
 //		7) 	PC	< c(R3)
 		Global.PC.set(Global.R[3].get());
-		
-		//Instruction.deCode();
-		
+
 	}
 
 }

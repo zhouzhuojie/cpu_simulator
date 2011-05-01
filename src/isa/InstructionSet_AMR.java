@@ -13,12 +13,12 @@ import arc_project.Instruction;
 public class InstructionSet_AMR extends Instruction {
 
 	/**
-	 * 
+	 * Add Memory to Register
 	 */
 	public InstructionSet_AMR() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see arc_project.Instruction#operate()
 	 */
@@ -42,9 +42,6 @@ public class InstructionSet_AMR extends Instruction {
 		Global.R[Global.ALU.char2int(Global.RSR.get())].set(Global.ALU.add(Global.R[Global.ALU.char2int(Global.RSR.get())].get(), Global.MBR.get()));
 //		9)	PC		< PC + 1
 		Global.PC.set(Global.ALU.add(Global.PC.get(), 1));
-		
-		//Instruction.deCode();
-		
 		
 	}
 

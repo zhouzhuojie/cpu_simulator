@@ -45,6 +45,9 @@ public abstract class Instruction {
 		
 		/******************************************************************************
 		 * Start decoding.															  *
+		 * These are the common 1) 2) 3) 4) steps in decoding an instruction, the     *
+		 * following 5) 6) ... n) steps will be shown in the specific instructions    *
+		 * defined in the isa package.												  *
 		 *****************************************************************************/
 
 		// 1) MAR < PC
@@ -56,6 +59,9 @@ public abstract class Instruction {
 		// 4) OPCODE < IR 0-5
 		Global.OPCODE.set(Global.IR.get(0, 5));
 		// Convert Opcode to int in order to use it in the switch statement.
+		
+		
+		
 		int Opcode = 0;
 		for (int i = 0; i < 6; i++) {
 			if (Global.OPCODE.get(i) == '1')

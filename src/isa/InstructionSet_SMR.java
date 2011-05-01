@@ -13,12 +13,12 @@ import arc_project.Instruction;
 public class InstructionSet_SMR extends Instruction {
 
 	/**
-	 * 
+	 * Subtract Memory From Register
 	 */
 	public InstructionSet_SMR() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see arc_project.Instruction#operate()
 	 */
@@ -37,26 +37,12 @@ public class InstructionSet_SMR extends Instruction {
 //		6)	MAR		< EA
 		Global.MAR.set(Instruction.EA());
 //		7)	MBR		< Memory(MAR)
-//		if (Global.ALU.char2int(Global.PC.get()) > 800 ) {
-//			System.out.print("MAR = ");
-//			System.out.println(Global.MAR.get());
-//		}
-		
 		Global.MBR.set(Global.L1.get(Global.MAR.get()));
-//		8)	Register(RSR) < Register(RSR) - MBR
-//		if (Global.ALU.char2int(Global.PC.get()) > 700 ) {
-//			System.out.print(Global.ALU.char2int(Global.R[Global.ALU.char2int(Global.RSR.get())].get()));
-//			System.out.print(" - ");
-//			System.out.print(Global.ALU.char2int(Global.MBR.get()));
-//			System.out.print(" = ");
-//			System.out.println(Global.ALU.char2num(Global.ALU.minus(Global.R[Global.ALU.char2int(Global.RSR.get())].get(), Global.MBR.get())));
-//		}		
+//		8)	Register(RSR) < Register(RSR) - MBR	
 		Global.R[Global.ALU.char2int(Global.RSR.get())].set(Global.ALU.minus(Global.R[Global.ALU.char2int(Global.RSR.get())].get(), Global.MBR.get()));
 //		9)	PC		< PC + 1
 		Global.PC.set(Global.ALU.add(Global.PC.get(), 1));
-		
-		//Instruction.deCode();
-		
+
 	}
 
 }
