@@ -1,9 +1,20 @@
-/**
- * Class Memory
- * 
- * @author Zhuojie Zhou
- * @version (a version number or a date)
- */
+/*****************************************************************************
+ * FILE    : MemoryBank.java                                                 *
+ *                                                                           *
+ * AUTHOR  : Zhuojie Zhou                                                    *
+ *                                                                           *
+ * DATE    : May 4, 2011                                                     *
+ *                                                                           *
+ * PROJECT : GWU CS6461 Computer Architecture Class                          *
+ *                                                                           *
+ * This file contains the main ALU part                                      *
+ *                                                                           *
+ * DEPENDS : arc_project and Hash map                                        *
+ *                                                                           *
+ * Design Approach:                                                          *
+ * 		Memory bank is implemented in hashmap, key stand for address, while  *
+ * 		value stand for the word (data) stored in the memory bank.           *
+ *****************************************************************************/
 package arc_project;
 
 import java.util.HashMap;
@@ -22,8 +33,8 @@ public class MemoryBank {
 
 	/**
 	 * @param Input
-	 *            the address and word to write into the memory. Address and
-	 *            Word are char[].
+	 *            the address and word to write into the memory. address and
+	 *            word are char[].
 	 */
 	public void set(char[] address, char[] word) throws Exception {
 
@@ -41,10 +52,16 @@ public class MemoryBank {
 
 		String Address = new String(address);
 		String Word = _addressMap.get(Address);
+		
+		// If address have never been put in the hashmap, which means that read
+		// before write any value in the memory, then return a 16bit value which
+		// content are all zeros.
 		if (null == Word) {
 			char[] zeros = { '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
 					'0', '0', '0', '0', '0', '0' };
+			
 			return zeros;
+			
 		}
 		return Word.toCharArray();
 	}

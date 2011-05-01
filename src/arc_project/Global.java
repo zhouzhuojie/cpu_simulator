@@ -1,14 +1,26 @@
-/**
- * All the Global instance will be here
- * 
- * @author Zhuojie Zhou
- * @version (a version number or a date)
- */
+/*****************************************************************************
+ * FILE    : Global.java                                                     *
+ *                                                                           *
+ * AUTHOR  : Zhuojie Zhou                                                    *
+ *                                                                           *
+ * DATE    : May 4, 2011                                                     *
+ *                                                                           *
+ * PROJECT : GWU CS6461 Computer Architecture Class                          *
+ *                                                                           *
+ * This file contains the main ALU part                                      *
+ *                                                                           *
+ * DEPENDS : gui and arc_project package                                     *
+ *                                                                           *
+ * Design Approach:                                                          *
+ *  	Listing all the components in the cpu simulator, including all the   *
+ *  	registers, memory, cache, alu, card reader(FileInputStream,          *
+ *  	BufferedReader) and front panel (GuiMain).							 *
+ *                                                                           *
+ *****************************************************************************/
 package arc_project;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-
 import gui.*;
 
 public class Global {
@@ -125,7 +137,11 @@ public class Global {
 											// direct mapping, write through and
 											// write no-allocate policies.
 
-	public static GuiMain GUIMAIN = new GuiMain();
+	public static GuiMain GUIMAIN = new GuiMain(); //Global Gui Main class.
+	
+	
+	// The following two file input stream and buffer reader are used to read file
+	// from the file on disk. We can view this as card reader plugin in the simulator.
 	public static FileInputStream fstream = null;
 	public static BufferedReader br = null;
 	public static FileInputStream fstream0 = null;

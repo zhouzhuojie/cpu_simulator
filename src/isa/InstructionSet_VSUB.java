@@ -54,9 +54,11 @@ public class InstructionSet_VSUB extends Instruction {
 					.char2num(Global.VREG1[i].get())
 					- Global.ALU.char2num(Global.VREG2[i].get())));
 
-			Global.L1.set(Global.ALU.int2char(i
-					+ Global.ALU.char2int(Global.R[Global.ALU
-							.char2int(Global.RSR.get())].get())),
+            Global.MAR.set(Instruction.EA());
+			Global.MBR.set(Global.MEMORY.get(Global.MAR.get()));
+			Global.MAR.set(Global.ALU.int2char(
+                        i + Global.ALU.char2int(Global.MBR.get())));
+			Global.L1.set(Global.MAR.get(),
 					Global.VREG1[i].get());
 		}
 		// PC < PC + 1

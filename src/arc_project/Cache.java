@@ -1,17 +1,32 @@
+/*****************************************************************************
+ * FILE    : Cache.java                                                      *
+ *                                                                           *
+ * AUTHOR  : Zhuojie Zhou                                                    *
+ *                                                                           *
+ * DATE    : May 4, 2011                                                     *
+ *                                                                           *
+ * PROJECT : GWU CS6461 Computer Architecture Class                          *
+ *                                                                           *
+ * This file contains the main ALU part                                      *
+ *                                                                           *
+ * DEPENDS : arc_project.Global FileWriter, BufferWriter                     *
+ *                                                                           *
+ * Design Approach:                                                          *
+ * 		(a) 8 lines with 8 16bits data each.                                 *
+ * 		(b) Using direct mapping method, the last 3 bits (bit 13th - 15th)   *
+ * 			are used for Block offset (identify the position of a word we    *
+ * 			need). The next last 3 bits (bit 10th - 12th) are used for Index * 
+ * 			(identify the line number we need). The first 10 bits are used   *
+ * 			for tag.														 *
+ * 		(c) Using write-through technique. i.e, if write hit, both write to  *
+ * 			the cache and memory, if write miss, just write to the memory.	 *		
+ *****************************************************************************/
+
 package arc_project;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
-
-/*   
- *   This cache is direct-mapped placement.  The 16-bit address is divided it into 3 parts: Tag, Index, and Block offset.
- *   Since it is 8 lines of 8 words each, the last 3 bits (bit 14th - 16th) are used for Block offset (identify the position of a word we need).
- *   The next last 3 bits are used for Index (identify the line number we need).  and 10 first bits are used for Tag.
- *   
- *   This is write-through cache using no-write allocate.
- *   
- */
 public class Cache {
 	private int[] _validBit = new int[8];  // valid bit
 	private String[] _tag = new String[8];  // Tag

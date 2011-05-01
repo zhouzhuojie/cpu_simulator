@@ -101,7 +101,7 @@ public class GuiPanel extends Panel {
 			choice = new Choice();
 			choice.add ("Program 1");
 			choice.add ("Program 2");
-			choice.add ("Vector and Cache Demo");
+			choice.add ("Vector Cache Demo");
 			choice.addItemListener(itemListener);
 			add(choice);
 		}
@@ -122,7 +122,7 @@ public class GuiPanel extends Panel {
     		  Global.GUIMAIN.gNumSkipISA = 14500;
        	  if (ProgramName.equals("Program 2"))
     		  Global.GUIMAIN.gNumSkipISA = 32500;
-       	  if (ProgramName.equals("Vector and Cache Demo"))
+       	  if (ProgramName.equals("Vector Cache Demo"))
 			try {
 				Global.GUIMAIN.vector_cache_demo();
 			} catch (Exception e) {

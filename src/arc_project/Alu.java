@@ -1,9 +1,22 @@
-/**
- * Alu
- * 
- * @author Zhuojie Zhou
- * @version  Have bugs here, need revise
- */
+/*****************************************************************************
+ * FILE    : Alu.java                                                        *
+ *                                                                           *
+ * AUTHOR  : Zhuojie Zhou                                                    *
+ *                                                                           *
+ * DATE    : May 4, 2011                                                     *
+ *                                                                           *
+ * PROJECT : GWU CS6461 Computer Architecture Class                          *
+ *                                                                           *
+ * This file contains the main ALU part                                      *
+ *                                                                           *
+ * DEPENDS :                                                                 *
+ *                                                                           *
+ * Design Approach:                                                          *
+ *	  Data format are all char[] 											 * 
+ *    (a) Convert from integer to 16 bit binary                              *  
+ *    (b) +,-,*,/ operation                                                  *
+ *                                                                           *
+ *****************************************************************************/
 package arc_project;
 
 public class Alu {
@@ -14,8 +27,18 @@ public class Alu {
 		this._maxLength = _maxLength;
 	}
 
-	/* Changed by Leen */
-	/* Convert Binary into ONLY Positive Number */
+	/******************************************************************************
+	 * Integer and 16 bit converting process. Convenient for the calculation      *
+	 * in Instructions and isa.													  *
+	 * 																			  *
+	 * char2int and int2char are all considering positive values with 16 bits long*
+	 * 																		      *
+	 * num2int and int2num are all considering values with 15bits long, the first *
+	 * 		bit is sign bit.													  *
+	 * 																			  *
+	 * Note: This kind of converting is not going to be implemented in hardware,  *
+	 * 		just for the convenience of computing. And we put the code here in ALU*
+	 *****************************************************************************/
 	public int char2int(char[] c) {
 		int sum = 0;
 
@@ -157,6 +180,11 @@ public class Alu {
 
 	}
 
+	
+	/******************************************************************************
+	 *                   +, - , *, / operations.								  *
+	 *****************************************************************************/
+	
 	// char[] + char[]
 	public char[] add(char[] RX, char[] RY) throws Exception {
 		return num2char((char2num(RX) + char2num(RY)));
@@ -193,8 +221,6 @@ public class Alu {
 	public char[] divide_remainder(char[] RX, char[] RY) throws Exception {
 		return num2char((char2num(RX) % char2num(RY)));
 	}
-
-	/* Added by Leen */
 
 	// Equality
 	public boolean equal(char[] RX, char[] RY) throws Exception {

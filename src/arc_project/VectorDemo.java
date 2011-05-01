@@ -1,6 +1,17 @@
-/**
- * 
- */
+/*************************************************************************
+ * Part2_Cache_Memory                                                    *
+ *                                                                       *
+ * Authors: Zhuojie Zhou                                                 *
+ *                                                                       *
+ * Demo for Part 2:													     *
+ * 		(a) Loading from a file to memory.								 *
+ * 		(b) Using VADD instruction to calculate vector add operation.    *
+ * 		(c) Meanwhile, we also output the cacheRecord.txt file to show   *
+ * 			the changes in L1 cache.									 *
+ * 																		 *
+ * Note: L1 cache is always on, so after calculating program1.txt and 	 *
+ * program2.txt, also can find the cache log report in cacheRecord.txt   *
+ *************************************************************************/
 package arc_project;
 
 import java.io.BufferedReader;
@@ -8,70 +19,83 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-/**
- * @author zzj
- *
- */
 public class VectorDemo {
 
+	
 	/*************************************************************************
-	 * Part2_Cache_Memory                                                    *
-	 *                                                                       *
-	 * Authors: Zhuojie Zhou and Leenarat Leelapanyalert                     *
-	 *                                                                       *
-	 * Input  : none                                                         *
-	 *                                                                       *
-	 * return : void                                                         *
-	 *                                                                       *
-	 * Part 2 - perform cache memory                                         *
+	 * Memory preparation for the VADD instruction.                          *
+	 * Read from a txt file.												 *
+	 * The file's format is "16bits 16bits" separated by space.              *
 	 *************************************************************************/
-	public void demo() throws Exception
-	{
-		/*************************************************************************
-		 * Memory preparation for the VADD instruction.                          *
-		 * Read from a txt file.												 *
-		 * The file's format is "16bits 16bits" separated by space.              *
-		 *************************************************************************/
-		Global.GUIMAIN.outToConsole("Loading 'program_file/VectorData.txt' " + "\n");
-		
-		char[] address_V1 = {'0','0','0','0','0','0','0','0','1','0','0','0','0','0','0','0'};
-		char[] address_V2 = {'0','0','0','0','0','0','0','1','0','0','0','0','0','0','0','0'};
+	public void demo() throws Exception {
+
+		Global.GUIMAIN.outToConsole("Loading 'program_file/VectorData.txt' "
+				+ "\n");
+
+		char[] address_V1 = { '0', '0', '0', '0', '0', '0', '0', '0', '1', '0',
+				'0', '0', '0', '0', '0', '0' };
+		char[] address_V2 = { '0', '1', '0', '0', '0', '0', '0', '0', '0', '0',
+				'0', '0', '0', '0', '0', '0' };
 		int k = 0;
-		
+
 		String s;
-		while (null != (s = getLine0()) ){
+		while (null != (s = getLine0())) {
 
 			String v1 = s.split(" ")[0];
 			String v2 = s.split(" ")[1];
-			Global.GUIMAIN.outToConsole("V1["+k+"]: " + v1 + "   V2["+k+"]: " + v2 + "\n");
+			Global.GUIMAIN.outToConsole("V1[" + k + "]: " + v1 + "   V2[" + k
+					+ "]: " + v2 + "\n");
 			char[] w1 = v1.toCharArray();
 			char[] w2 = v2.toCharArray();
-			
-			Global.L1.set(Global.ALU.int2char(k+Global.ALU.char2int(address_V1)), w1);
-			Global.L1.set(Global.ALU.int2char(k+Global.ALU.char2int(address_V2)), w2);
+
+			Global.L1.set(
+					Global.ALU.int2char(k + Global.ALU.char2int(address_V1)),
+					w1);
+
+			Global.L1.set(
+					Global.ALU.int2char(k + Global.ALU.char2int(address_V2)),
+					w2);
+
 			k++;
 		}
-		char[] address_EA = {'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'};
-		char[] address_EA_Plus1 = {'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'};
+		
+		
+		char[] address_EA = { '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
+				'0', '0', '0', '0', '1', '0' };
+		char[] address_EA_Plus1 = { '0', '0', '0', '0', '0', '0', '0', '0',
+				'0', '0', '0', '0', '0', '0', '1', '1' };
 		Global.L1.set(address_EA, address_V1);
 		Global.L1.set(address_EA_Plus1, address_V2);
+
 		
 		
 		/*************************************************************************
-		 * Calculation for VADD instruction                                      *
+		 * Calculation for VADD instruction *
 		 *************************************************************************/
-		String IR = "1000110000000000";
-		Global.IR.set(IR.toCharArray());
+		String IR = "1000110000000010";
+		String PC = "0000000000000000";
+		Global.PC.set(PC.toCharArray());
+		Global.L1.set(PC.toCharArray(), IR.toCharArray());
 		Instruction.deCode();
+		
 		Global.GUIMAIN.outToConsole("VADD results are: " + "\n");
-		for (k=0;k<32;k++){
-			String tmp = new String(Global.L1.get(Global.ALU.int2char(k+Global.ALU.char2int(address_V1))));
-			Global.GUIMAIN.outToConsole("V1["+k+"]: "+ tmp + "\n");
+		
+		for (int j = 0; j < 32; j++) {
+			String tmp = new String(Global.L1.get(Global.ALU.int2char(j
+					+ Global.ALU.char2int(address_V1))));
+			Global.GUIMAIN.outToConsole("V1[" + j + "]: " + tmp + "\n");
 		}
-		Global.GUIMAIN.outToConsole("Cache record has been saved in 'program_file/cacheRecord.txt' " + "\n");
+		Global.GUIMAIN
+				.outToConsole("Cache record has been saved in 'program_file/cacheRecord.txt' "
+						+ "\n");
 
 	}
+		
 	
+	/*************************************************************************
+	 * Get a line from the file, and point to the next line. If it is the	 * 
+	 * end of the file, then will return null.                               *
+	 *************************************************************************/
 	public String getLine0() {
 		try {
 			// Open the file that is the first

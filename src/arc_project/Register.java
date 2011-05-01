@@ -1,12 +1,20 @@
-/**
- * Class Register
- * 
- * _regContent ---> Register's Content
- * 
- * 
- * @author Zhuojie Zhou
- * @version (a version number or a date)
- */
+/*****************************************************************************
+ * FILE    : Register.java                                                   *
+ *                                                                           *
+ * AUTHOR  : Zhuojie Zhou                                                    *
+ *                                                                           *
+ * DATE    : May 4, 2011                                                     *
+ *                                                                           *
+ * PROJECT : GWU CS6461 Computer Architecture Class                          *
+ *                                                                           *
+ * This file contains the main ALU part                                      *
+ *                                                                           *
+ * DEPENDS : arc_project and Hash map                                        *
+ *                                                                           *
+ * Design Approach:                                                          *
+ * 		Memory bank is implemented in hashmap, key stand for address, while  *
+ * 		value stand for the word (data) stored in the memory bank.           *
+ *****************************************************************************/
 
 package arc_project;
 
@@ -20,15 +28,6 @@ public class Register {
 	 * Constructor for objects of class Register, define the length of the
 	 * register.
 	 */
-	public Register() {
-		// initialize _regContent
-		_regLength = 16;
-		_regContent = new char[_regLength];
-		for (int i = 0; i < _regLength; i++) {
-			_regContent[i] = '0';
-		}
-	}
-
 	public Register(int length) {
 		// initialize _regContent
 		_regLength = length;
@@ -47,10 +46,9 @@ public class Register {
 
 	/**
 	 * @param _regContent
-	 *            the _regContent to set
+	 * Set the _regContent with whole 16bit of value
 	 */
 	public void set(char[] _regContent) throws Exception {
-
 		// Throw exception when the register contains char which is not 0 or 1,
 		// or the register's length is not the predefined one.
 		boolean tmp = true;
@@ -61,12 +59,11 @@ public class Register {
 			throw new Exception(" Illegal register's content");
 
 		this._regContent = _regContent;
-
 	}
 
 	/**
 	 * @param _regContent
-	 *            the _regContent[i] to set
+	 * Set the _regContent[i] with the indexOf i
 	 */
 	public void set(char c, int i) throws Exception {
 		_regContent[i] = c;
@@ -76,7 +73,7 @@ public class Register {
 
 	/**
 	 * @param _regContent
-	 *            the _regContent to set start from startIndex
+	 * Set the _regContent start from the indexOf i
 	 */
 	public void set(char[] partContent, int startIndex) throws Exception {
 		if (partContent.length > _regLength - startIndex)

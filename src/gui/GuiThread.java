@@ -30,7 +30,7 @@ public class GuiThread implements Runnable {
     public Boolean gRun=false;
     public Boolean gDebug=false;
     public Boolean gStep=false;
-    public long gTimer=0;  
+    public long gTimer=0;  // 10 mc
     public Boolean gKeyboardOn = false;
     
     GuiThread (GuiMain top)     
@@ -83,10 +83,6 @@ public class GuiThread implements Runnable {
 			{
 				gMain.gTimerOn = false;
 				gMain.printExecutionTime(); 
-				gMain.setButton("IPL", false);
-				gMain.setButton("Run", false);
-				gMain.setButton("Debug", false);
-				gMain.setButton("Halt", true);
 			}
     		try {
     			//delay for one second

@@ -1,9 +1,22 @@
-/**
- * Class Memory
- * 
- * @author Zhuojie Zhou
- * @version (a version number or a date)
- */
+/*****************************************************************************
+ * FILE    : Memory.java                                                     *
+ *                                                                           *
+ * AUTHOR  : Zhuojie Zhou                                                    *
+ *                                                                           *
+ * DATE    : May 4, 2011                                                     *
+ *                                                                           *
+ * PROJECT : GWU CS6461 Computer Architecture Class                          *
+ *                                                                           *
+ * This file contains the main ALU part                                      *
+ *                                                                           *
+ * DEPENDS : arc_project                                                     *
+ *                                                                           *
+ * Design Approach:                                                          *
+ * 		Memory contains two memory banks, and using the last bit to specify  *
+ * 		which bank to read and write.                                        *
+ *****************************************************************************/
+
+
 package arc_project;
 
 public class Memory {
@@ -51,14 +64,13 @@ public class Memory {
 		if ((tmp1 == false) || (word.length != _memoryWordLength))
 			throw new Exception("Illegal Word");
 
+		
+		
 		String Address = new String(address);
-
 		if (Address.charAt(this._memoryAddressLength - 1) == '0') {
-			this._membank0.set(Address.substring(0,
-					this._memoryAddressLength - 1).toCharArray(), word);
+			this._membank0.set(Address.toCharArray(), word);
 		} else {
-			this._membank1.set(Address.substring(0,
-					this._memoryAddressLength - 1).toCharArray(), word);
+			this._membank1.set(Address.toCharArray(), word);
 		}
 
 	}
@@ -82,14 +94,13 @@ public class Memory {
 			throw new Exception("Illegal Memory Address");
 		}
 
+		
+		
 		String Address = new String(address);
-
 		if (Address.charAt(this._memoryAddressLength - 1) == '0') {
-			return this._membank0.get(Address.substring(0,
-					this._memoryAddressLength - 1).toCharArray());
+			return this._membank0.get(Address.toCharArray());
 		} else {
-			return this._membank1.get(Address.substring(0,
-					this._memoryAddressLength - 1).toCharArray());
+			return this._membank1.get(Address.toCharArray());
 		}
 	}
 

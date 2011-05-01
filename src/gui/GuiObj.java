@@ -36,41 +36,12 @@ public class GuiObj {
 	public int yx=-1, yy=-1, yw=-1, yh=-1;
 	public int nx=-1, ny=-1, nw=-1, nh=-1;
 	
-	/*************************************************************************
-	 * setValue                                                              *
-	 *                                                                       *
-	 * Input  : String newval - new register value                           *
-	 *                                                                       *
-	 * return : void                                                         *
-	 *                                                                       *
-	 * Place the new register into the register's current value              *
-	 *************************************************************************/
 	public void setValue (String newval)
 	{
 		if (this.size <= newval.length())
-		{
-			this.val = newval.substring(0, this.size);
-			this.oldval = this.val; 
-		}
+			this.val = newval.substring(0, this.size); 
 	}
 	
-	/*************************************************************************
-	 * setTempValue                                                          *
-	 *                                                                       *
-	 * Input  : String newval - new register value                           *
-	 *                                                                       *
-	 * return : void                                                         *
-	 *                                                                       *
-	 * Place the new register into the register's current value              *
-	 *************************************************************************/
-	public void setTempValue (String newval)
-	{
-		if (this.size <= newval.length())
-		{
-			this.val = newval.substring(0, this.size); 
-		}
-	}
-
 	/*************************************************************************
 	 * commitValue                                                           *
 	 *                                                                       *

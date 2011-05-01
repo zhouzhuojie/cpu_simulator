@@ -21,6 +21,7 @@ public class InstructionSet_VADD extends Instruction {
 	 */
 	public void operate() throws Exception {
 
+
 		//IND <- IR 6
 		Global.IND.set(Global.IR.get(6),0);
 		//IXI <- IR 7
@@ -33,29 +34,34 @@ public class InstructionSet_VADD extends Instruction {
 		    
 
             Global.MAR.set(Instruction.EA());
-			Global.MBR.set(Global.L1.get(Global.MAR.get()));
+            Global.MBR.set(Global.MEMORY.get(Global.MAR.get()));
 			Global.MAR.set(Global.ALU.int2char(
                         i + Global.ALU.char2int(Global.MBR.get())));
 			Global.MBR.set(Global.L1.get(Global.MAR.get()));
 			Global.VREG1[i].set(Global.MBR.get());
+			
+
 
 			Global.MAR.set(Global.ALU.int2char(
                         1 + Global.ALU.char2int(Instruction.EA())));
-			Global.MBR.set(Global.L1.get(Global.MAR.get()));
+			Global.MBR.set(Global.MEMORY.get(Global.MAR.get()));
 			Global.MAR.set(Global.ALU.int2char(
                         i + Global.ALU.char2int(Global.MBR.get())));
 			Global.MBR.set(Global.L1.get(Global.MAR.get()));
 			Global.VREG2[i].set(Global.MBR.get());
-
+			
 
 
 			Global.VREG1[i].set(Global.ALU.num2char(Global.ALU
 					.char2num(Global.VREG1[i].get())
 					+ Global.ALU.char2num(Global.VREG2[i].get())));
 
-			Global.L1.set(Global.ALU.int2char(i
-					+ Global.ALU.char2int(Global.R[Global.ALU
-							.char2int(Global.RSR.get())].get())),
+
+            Global.MAR.set(Instruction.EA());
+			Global.MBR.set(Global.MEMORY.get(Global.MAR.get()));
+			Global.MAR.set(Global.ALU.int2char(
+                        i + Global.ALU.char2int(Global.MBR.get())));
+			Global.L1.set(Global.MAR.get(),
 					Global.VREG1[i].get());
 		}
 		// PC < PC + 1

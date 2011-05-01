@@ -1,33 +1,52 @@
-/**
- * All the Global instance will be here
- * 
- * @author Zhuojie Zhou
- * @version (a version number or a date)
- */
+/*****************************************************************************
+ * FILE    : Instruction.java                                                *
+ *                                                                           *
+ * AUTHOR  : Zhuojie Zhou                                                    *
+ *                                                                           *
+ * DATE    : May 4, 2011                                                     *
+ *                                                                           *
+ * PROJECT : GWU CS6461 Computer Architecture Class                          *
+ *                                                                           *
+ * This file contains the main ALU part                                      *
+ *                                                                           *
+ * DEPENDS : arc_project and isa package                                     *
+ *                                                                           *
+ * Design Approach:                                                          *
+ *    Instruction is an abstract class, and all the specific instructions    *
+ *    are the subclass of Instruction, they contain the detailed operations. *  
+ *    (a) deCode() : start to decode the instruction given Global.PC         *
+ *    (b) EA()     : calculate effective address in memory.                  *
+ *****************************************************************************/
 package arc_project;
 
 import isa.*;
 
-/**
- * @author zzj
- * 
- */
 public abstract class Instruction {
 
 	public static void deCode() throws Exception {
 		
-		
+		/******************************************************************************
+		 * Using for debug mode, if DLn(Debug Line Number) equals to current Global.PC*
+		 * then trigger the debug mode, and temporarily stop the machine. 			  *
+		 *****************************************************************************/
 		String sPC = new String(Global.PC.get());
 		String sDLN = new String(Global.DLN.get());
 		if (sPC.equals(sDLN)) {
 			Global.GUIMAIN.gThread.gDebug = true;
 			Global.GUIMAIN.gThread.gStep = true;
-
 		}
 
+		/******************************************************************************
+		 * Each time before executing the instruction, we need to refresh the panel   *
+		 * to show the LEDs.														  *
+		 *****************************************************************************/
 		Global.GUIMAIN.refresh();
 		
-		/* Changed by Leen */
+		
+		/******************************************************************************
+		 * Start decoding.															  *
+		 *****************************************************************************/
+
 		// 1) MAR < PC
 		Global.MAR.set(Global.PC.get());
 		// 2) MBR < Memory(MAR)
@@ -170,18 +189,22 @@ public abstract class Instruction {
 			break;
 
 		default:
+			//Otherwise the opcode is illegal, we should show the fault in MFR
 			char[] machine_fault_2 = {'0','0','1','0'};
 			Global.MFR.set(machine_fault_2);
 			throw new Exception("Illegal Opcode!");
-
 		}
-
-
 	}
-
+	
+	
+	
+	
+	
+	/******************************************************************************
+	 * EA()	: Generating effective address.   									  *
+	 *****************************************************************************/
 	/* Added by Leen */
 	public static char[] EA() throws Exception {
-
 		// 1) IF (IXI == 1) THEN
 		if (Global.IXI.get(0) == '1') {
 			// EA < X0 + ADDR
@@ -198,9 +221,7 @@ public abstract class Instruction {
 			y[13] = x[3];
 			y[14] = x[4];
 			y[15] = x[5];
-
 			Global.EA.set(y);
-
 		}
 		// 2) IF (IND == 1) THEN
 		if (Global.IND.get(0) == '1') {
@@ -211,10 +232,12 @@ public abstract class Instruction {
 			// EA < MBR
 			Global.EA.set(Global.MBR.get());
 		}
-
 		return Global.EA.get();
 	}
-
+	
+	
+	/******************************************************************************
+	 * Abstract operate()  														  *
+	 *****************************************************************************/
 	public abstract void operate() throws Exception;
-
 }
